@@ -12,7 +12,9 @@
    7. The paramter of target network is updated at every n (4 in this case) steps.
 
 **Score vs episodes:**
+ Plot of score against episodes during training is as follows and we could see the model converged at 400 episodes for required score of +13 for each episode. X axis is and Y axis is score.
  
+ <img src="https://github.com/anug7/udacity_rl/blob/master/assigns/deep-reinforcement-learning/p1_navigation/scores_vs_episodes.png" />
 
 **Future ideas:**
 1. Use Prioritized Experienced Relay - instead of picking samples with uniform distribution from the Relay buffer, we could pick them with probabilities computed from the error values.
