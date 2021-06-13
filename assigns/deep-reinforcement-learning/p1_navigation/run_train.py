@@ -1,3 +1,8 @@
+"""
+AI agent to solve Banana problem from UnityAgents environment
+The AI agent uses Deep-Q Network to solve the same.
+"""
+
 from collections import deque
 
 import numpy as np
