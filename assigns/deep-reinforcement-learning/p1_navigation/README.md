@@ -36,5 +36,5 @@ The task is episodic, and in order to solve the environment, your agent must get
 
 ### Instructions
 
-Follow the instructions in `Navigation.ipynb` to get started to see how the agent performs.
+Follow the instructions in `Navigation.ipynb` to get started on step by step procedure to train the agent or you could use **run_train.py** to train directly.
  
