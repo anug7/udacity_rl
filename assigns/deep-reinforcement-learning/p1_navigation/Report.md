@@ -7,9 +7,13 @@
 4. A RelayBuffer is used to store the SARSA pair for each step of the agent.
 5. The Nueral network is trained with the samples from the RelayBuffer which are taken with uniform distribution from it. This kind of disregards the temporal relation between consecutives state transitions.
 6. DQN has two NN with same architecture, Local & Target networks. The architecture of the network is as follows,
-   1. The Neural network has three Fully connected layers
+   1. The Neural network has three Fully connected layers.
+      1. Layer 1: Size: 37 * 128 i.e state_space_size * hidden_layer1_size
+      2. Layer 2: Size: 128 * 64 i.e hidden_layer1_size * hidden_layer2_size
+      3. Layer 3: Size: 64 * 4 i.e hidden_layer2_size * action_space_size
    2. The first two layers have ReLU activation unit 
    3. While the last layer is simply a linear layer to give Q-values directly without any activation unit.
+   4. The number of nodes in the hidden layers and no of hidden layers are chosen based on experiments.
 7. Local network is used to compute the Q-value for any given state whereas the target network is used to compute the Q value which is used to calculate the error.
 8. The parameter of target network is updated from local network at a fraction rate.
 9. The parameter of target network is updated at every n (4 in this case) steps.
