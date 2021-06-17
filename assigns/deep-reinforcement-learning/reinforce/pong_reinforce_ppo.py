@@ -94,73 +94,71 @@ def clipped_surrogate(policy, old_probs, states, actions, rewards,
 
   return torch.mean(beta*entropy + loss)
 
+if __name__  == "__main__":
+  policy = Policy().to(device)
+  envs = pong_utils.parallelEnv('PongDeterministic-v4', n=4, seed=12345)
+  prob, state, action, reward = pong_utils.collect_trajectories(envs, policy, tmax=100)
+  Lsur = clipped_surrogate(policy, prob, state, action, reward)
 
-policy = Policy().to(device)
-envs = pong_utils.parallelEnv('PongDeterministic-v4', n=4, seed=12345)
-prob, state, action, reward = pong_utils.collect_trajectories(envs, policy, tmax=100)
-Lsur = clipped_surrogate(policy, prob, state, action, reward)
+  # training loop max iterations
+  episode = 500
 
-import numpy as np
-
-# training loop max iterations
-episode = 500
-
-# widget bar to display progress
-widget = ['training loop: ', pb.Percentage(), ' ',
-          pb.Bar(), ' ', pb.ETA() ]
-timer = pb.ProgressBar(widgets=widget, maxval=episode).start()
+  # widget bar to display progress
+  widget = ['training loop: ', pb.Percentage(), ' ',
+            pb.Bar(), ' ', pb.ETA() ]
+  timer = pb.ProgressBar(widgets=widget, maxval=episode).start()
 
 
-envs = parallelEnv('PongDeterministic-v4', n=8, seed=1234)
+  envs = parallelEnv('PongDeterministic-v4', n=8, seed=1234)
 
-discount_rate = .99
-epsilon = 0.1
-beta = .01
-tmax = 320
-SGD_epoch = 4
+  discount_rate = .99
+  epsilon = 0.1
+  beta = .01
+  tmax = 320
+  SGD_epoch = 4
 
-# keep track of progress
-mean_rewards = []
-optimizer = optim.Adam(policy.parameters(), lr=1e-4)
+  # keep track of progress
+  mean_rewards = []
+  optimizer = optim.Adam(policy.parameters(), lr=1e-4)
 
-for e in range(episode):
-    # collect trajectories
-  old_probs, states, actions, rewards = \
-      pong_utils.collect_trajectories(envs, policy, tmax=tmax)
+  for e in range(episode):
+      # collect trajectories
+    old_probs, states, actions, rewards = \
+        pong_utils.collect_trajectories(envs, policy, tmax=tmax)
 
-  total_rewards = np.sum(rewards, axis=0)
+    total_rewards = np.sum(rewards, axis=0)
 
 
-  # gradient ascent step
-  # Use same tracjectories for some updates
-  for _ in range(SGD_epoch):
+    # gradient ascent step
+    # Use same tracjectories for some updates
+    for _ in range(SGD_epoch):
 
-    # uncomment to utilize your own clipped function!
-    L = -clipped_surrogate(policy, old_probs, states, actions, rewards, epsilon=epsilon, beta=beta)
+      # uncomment to utilize your own clipped function!
+      L = -clipped_surrogate(policy, old_probs, states, actions, rewards, epsilon=epsilon, beta=beta)
 
-    optimizer.zero_grad()
-    L.backward()
-    optimizer.step()
-    del L
+      optimizer.zero_grad()
+      L.backward()
+      optimizer.step()
+      del L
 
-  # the clipping parameter reduces as time goes on
-  epsilon *= 0.999
+    # the clipping parameter reduces as time goes on
+    epsilon *= 0.999
 
-  # the regulation term also reduces
-  # this reduces exploration in later runs
-  beta *= 0.995
+    # the regulation term also reduces
+    # this reduces exploration in later runs
+    beta *= 0.995
 
-  # get the average reward of the parallel environments
-  mean_rewards.append(np.mean(total_rewards))
+    # get the average reward of the parallel environments
+    mean_rewards.append(np.mean(total_rewards))
 
-  # display some progress every 20 iterations
-  if (e + 1) % 20 == 0:
-    print("Episode: {0:d}, score: {1:f}".format(e + 1, np.mean(total_rewards)))
-    print(total_rewards)
+    # display some progress every 20 iterations
+    if (e + 1) % 20 == 0:
+      print("Episode: {0:d}, score: {1:f}".format(e + 1, np.mean(total_rewards)))
+      print(total_rewards)
 
-  # update progress widget bar
-  timer.update(e + 1)
+    # update progress widget bar
+    timer.update(e + 1)
 
-timer.finish()
+  timer.finish()
 
-torch.save(policy, 'REINFORCE_ppo.policy')
+  torch.save(policy, 'REINFORCE_ppo.policy')
