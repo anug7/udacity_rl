@@ -43,7 +43,8 @@ Training:
 Score vs episodes:
   1. The evironment is considered solved if the average score is +30 (per agent) over the last iterations (100 iterations)
   2. Plot of score against episodes during training is shown below.
-  3. If you look at the plot, we can use that the score is over 13 i.e average is +13, from episodes 421 to 521, hence we can consider the environment is solved at episode 421 i.e the scores after episode 421, are over 13. Or solved at episode 521 if we include the episodes which are used to compute the average values.
+  3. The environment is solved in 100 episodes as the multiple agents are used to collect samples
+  [Plot]()
 
 Future Ideas:
   1. Use Prioritized Experienced Relay - instead of picking samples with uniform distribution from the Relay buffer, we could pick them with probabilities computed from the error values.
