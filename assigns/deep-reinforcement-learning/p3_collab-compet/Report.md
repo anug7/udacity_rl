@@ -4,7 +4,7 @@ Algorithm details:
     computed from an another NN model for computing the action value called Critic.
 3. The hyperparemeter epsilon is reduced over the episodes so that initially more weightage is given for exploration and later to the knowledge. As per literature recommendations,
    the epsilon is reduced linearly over the episode.
-4. A RelayBuffer is used to store the SARSA pair for each step of the agent - for both Actor and Critic Models
+4. A RelayBuffer is used to store the SARSA pair for each step of the agent - for both Actor and Critic Models. And this buffer is shared between the agents used in the training.
 5. Actor & Critic networks are trained with the samples from the RelayBuffer which are taken with uniform distribution from it. This kind of disregards the temporal relation between consecutives state transitions.
 6. Each of the Actor & Critic models has two NN with same architecture, Local & Target networks. The architecture of the Actor Model is as follows,
     * The Neural network has three Fully connected layers.
@@ -40,11 +40,14 @@ Training:
   1. The Environment contains two agents getting trained in parallel.
   2. The Relay buffer used is shared by both the agent for faster learning.
   3. The max of the scores from two agents is considered as the score for each episode for which value should be >= 0.5 for a successful termination of training.
+  4. The final weight file is located [here](https://github.com/anug7/udacity_rl/blob/master/assigns/deep-reinforcement-learning/p3_collab-compet/solved_weights.pth).
 
 Score vs episodes:
-  1. The evironment is considered solved if the average score is +30 (per agent) over the last iterations (100 iterations)
+  1. The evironment is considered solved if the average score is +0.5 for any of the two agents over the last 100 iterations
   2. Plot of score against episodes during training is shown below.
-  3. If you look at the plot, we can use that the score is over 13 i.e average is +13, from episodes 421 to 521, hence we can consider the environment is solved at episode 421 i.e the scores after episode 421, are over 13. Or solved at episode 521 if we include the episodes which are used to compute the average values.
+  3. If we look at the plot, we can use that the score is over 0.5 i.e average is 0.5, from episodes 1743 to 1843, hence we can consider the environment is solved at episode 1743 i.e the scores after episode 1743, are over 0.5. Or solved at episode 1843 if we include the episodes which are used to compute the average values
+ 
+ ![Plot](https://github.com/anug7/udacity_rl/blob/master/assigns/deep-reinforcement-learning/p3_collab-compet/scorevsepisodes.png)
 
 Future Ideas:
   1. Use Prioritized Experienced Relay - instead of picking samples with uniform distribution from the Relay buffer, we could pick them with probabilities computed from the error values.
