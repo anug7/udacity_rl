@@ -45,3 +45,7 @@ Score vs episodes:
   2. Plot of score against episodes during training is shown below.
   3. If you look at the plot, we can use that the score is over 13 i.e average is +13, from episodes 421 to 521, hence we can consider the environment is solved at episode 421 i.e the scores after episode 421, are over 13. Or solved at episode 521 if we include the episodes which are used to compute the average values.
 
+Future Ideas:
+    1. Use Prioritized Experienced Relay - instead of picking samples with uniform distribution from the Relay buffer, we could pick them with probabilities computed from the error values.
+        * This makes the system to learn quickly as agent can learn from high error transition.Large error -> more the system can learn from that step.
+    2. Explore other methods such as A3C, PPO, etc..
