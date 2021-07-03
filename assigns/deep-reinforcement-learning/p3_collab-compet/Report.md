@@ -39,6 +39,7 @@ Algorithm details:
 Training:
   1. The Environment contains two agents getting trained in parallel.
   2. The Relay buffer used is shared by both the agent for faster learning.
+  3. The max of the scores from two agents is considered as the score for each episode for which value should be >= 0.5 for a successful termination of training.
 
 Score vs episodes:
   1. The evironment is considered solved if the average score is +30 (per agent) over the last iterations (100 iterations)
