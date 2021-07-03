@@ -45,7 +45,7 @@ Training:
 Score vs episodes:
   1. The evironment is considered solved if the average score is +0.5 for any of the two agents over the last 100 iterations
   2. Plot of score against episodes during training is shown below.
-  3. If we look at the plot, we can use that the score is over 0.5 i.e average is 0.5, from episodes 1743 to 1843, hence we can consider the environment is solved at episode 1743 i.e the scores after episode 1743, are over 0.5. Or solved at episode 1843 if we include the episodes which are used to compute the average values
+  3. If we look at the plot, we can use that the score is over 0.5 i.e average is 0.5, from episodes 1740 to 1840, hence we can consider the environment is solved at episode 1740 i.e the scores after episode 1740, are over 0.5. Or solved at episode 1840 if we include the episodes which are used to compute the average values
  
  ![Plot](https://github.com/anug7/udacity_rl/blob/master/assigns/deep-reinforcement-learning/p3_collab-compet/scorevsepisodes.png)
 
