@@ -28,7 +28,7 @@ Algorithm details:
 11. As per the Continuous Control paper,  Ornstein–Uhlenbeck process is added to action for exploration. This helps in random exploration of the agents
 12. Some of the hyper parameter used in training are as follows,
     * BUFFER_SIZE - 1e5 - size of the relay buffer(mentioned above) to store the SARSA pairs - chosen based on experiments.
-    * BATCH_SIZE - 128 - size of experiences from relay buffers used to train the networks at any time - chosen based on literature.
+    * BATCH_SIZE - 256 - size of experiences from relay buffers used to train the networks at any time - chosen based on literature.
     * GAMMA - 0.99 - the discount factor used in Expected return calculation - standard value of 0.99 is used giving more weights to future rewards.
     * TAU - 1e-3 - factor is used to soft update the target network weights from local network (described above) - as per the DQN paper.
     * LR - 1e-3 - learning rate used in Nueral network weight updates - chosen from experiments
