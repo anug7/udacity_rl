@@ -44,7 +44,11 @@ Score vs episodes:
   1. The evironment is considered solved if the average score is +30 (per agent) over the last iterations (100 iterations)
   2. Plot of score against episodes during training is shown below.
   3. The environment is solved in 100 episodes as the multiple agents are used to collect samples
-  [Plot]()
+  ![Plot](https://github.com/anug7/udacity_rl/blob/master/assigns/deep-reinforcement-learning/p2_continuous-control/scorevsepisodes.png)
+
+Weight Files
+1. [Actor Weight files](https://github.com/anug7/udacity_rl/blob/master/assigns/deep-reinforcement-learning/p2_continuous-control/actor_ckpt.pth)
+2. [Critic Weight files](https://github.com/anug7/udacity_rl/blob/master/assigns/deep-reinforcement-learning/p2_continuous-control/critic_ckpt.pth)
 
 Future Ideas:
   1. Use Prioritized Experienced Relay - instead of picking samples with uniform distribution from the Relay buffer, we could pick them with probabilities computed from the error values.
